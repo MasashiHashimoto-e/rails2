@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>宿泊予約</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <%= javascript_pack_tag    'application' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <header class = "header">
+    <a class = "logo" href = "/">Potepan Share</a>
+    <ul class = "login_signup">
+      <% if user_signed_in? %>
+        <li><%= image_tag current_user.image.url, class: "avatar" %></li>
+        
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= current_user.user_name %>
+        </button>  
+       
+              <li><%= link_to "施設の新規登録",  new_room_path, class:"dropdown-item" %></li>
+              <li><%= link_to "予約済み施設一覧", room_reservations_path(current_user.reservations) %></li>
+              <li><%= link_to "登録済み施設一覧", rooms_url, class:"dropdown-item" %></li>
+              <li><%= link_to "アカウント設定", users_mypage_path(current_user), class:"dropdown-item" %></li>
+              <li><%= button_to "ログアウト", destroy_user_session_path, class:"dropdown-item", method: :delete %></li>
+            </ul>
+        </div>
+      <% else %>
+        <li><%= link_to "新規登録", new_user_registration_path %></li>
+        <li><%= link_to "ログイン", new_user_session_path %></li>
+      <% end %>
+    </ul>
+  </header>
+  <div class="text-success">
+      <%= flash[:notice] %>
+    </div>
+  <div class="text-danger">
+      <%= flash[:alert] %>
+  </div>
+  
+  <%= yield %>
+
+  
+</body>
+</html>
