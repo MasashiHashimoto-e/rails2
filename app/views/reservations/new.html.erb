@@ -1,3 +1,4 @@
+<%= render "shared/error", obj: @reservation %>
 <div class = "box">
 	<div class = "box-inner">
 		<h2>予約フォーム</h2>
@@ -16,9 +17,9 @@
 				<%= f.hidden_field :room.name %>
 			</div>
 			<div class = "box-buttons">
-				<%= f.submit "予約確認へ" %>
+			<%= f.submit "予約確認へ" %>
 			</div>
 		<% end %>
 	</div>
-    <%= link_to "戻る", :back %>
+	<a class = "cancel" href = "/">キャンセル</a>
 </div>

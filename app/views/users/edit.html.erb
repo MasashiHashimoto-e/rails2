@@ -4,6 +4,14 @@
 <h2>プロフィールの編集</h2>
     <%= f.hidden_field :user_id, value: current_user.id %>
         <div class = "profile-avatar">
+        <h3>アイコン</h3>
+        <p>
+        <% if @user.image? %>
+          <%= image_tag @user.image.url, size: '500x300' %>
+        <% else %>
+          <%= image_tag ("default_icon.png"), size: '30x30' %>
+        <% end %>
+        </p>
             <p><%= f.label :image ,"アイコン画像" %></p>
             <p><%= f.file_field :image, accept: 'image/*' %></p>
             <%= f.hidden_field :board_image_cache %>
