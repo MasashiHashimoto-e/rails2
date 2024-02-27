@@ -29,7 +29,7 @@ class ReservationsController < ApplicationController
       flash[:notice] = "予約が完了しました" 
       redirect_to :room_reservations
     else
-      flash.now[:alert] = "予約できませんでした"
+      flash[:errors] = @reservation.errors.full_messages.join(', ')
       render :new
     end
   end
@@ -51,8 +51,8 @@ class ReservationsController < ApplicationController
   end
 
   def destroy
-    @reservation = Reservation.find_by(room_id:params[:room_id], user_id:current_user.id)
-    @room = @reservation.room
+    @reservation = Reservation.find(room_id:params[:room_id], user_id:current_user.id)
+    
     @reservation.destroy
     flash.now[:notice] = "予約を削除しました"
     redirect_to :reservations
@@ -60,6 +60,6 @@ class ReservationsController < ApplicationController
 
   private
   def reservation_params
-    params.require(:reservation).permit(:check_in, :check_out, :how_many_peopl, :how_many_days, :total_price, :user_id, :room_id)
+    params.require(:reservation).permit(:check_in, :check_out, :how_many_people, :how_many_days, :total_price, :user_id, :room_id)
   end
 end

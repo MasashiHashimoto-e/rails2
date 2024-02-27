@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  get 'reservations/index'
-  get 'rooms/index'
-  get 'tops/index'
   root to:'tops#index'
   get 'rooms/search'
   

@@ -1,7 +1,20 @@
+<%= render "shared/error", obj: @room %>
 <div class = "box">
     <div class = "box-inner">
         <h2>施設の新規登録</h2>
         <%= form_with model: @room do |f| %>
+        <p>
+        <% if @room.avatar? %>
+              <%= image_tag @room.avatar.url, size: '500x300' %>
+        <% else %>
+              <%= image_tag ("default-room-image.png"), size: '500x300' %>
+        <% end %>
+        </p>
+        <div class = "field">
+            <%= f.label :avatar ,"施設画像" %>
+            <%= f.file_field :avatar %>
+            <%= f.hidden_field :avatar_cache %>
+        </div>
         <div class = "field">
             <%= f.label :name ,"施設名" %>
             <%= f.text_field :name %>
@@ -17,11 +30,6 @@
         <div class = "field">
             <%= f.label :address ,"住所" %>
             <%= f.text_field :address %>
-        </div>
-        <div class = "field">
-            <%= f.label :avatar ,"施設画像" %>
-            <%= f.file_field :avatar %>
-            <%= f.hidden_field :avatar_cache %>
         </div>
         <div class = "box-buttons">
             <%= f.submit "保存" %>
